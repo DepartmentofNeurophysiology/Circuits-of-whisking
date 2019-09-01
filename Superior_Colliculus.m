@@ -1,4 +1,4 @@
-function [waveform,nose_adapt,tip_nose]=Superior_Colliculus(waveform,midline_angle,whisker_length,ret_free,nose_adapt,caudal_dist)
+function [waveform,locomotive_path,tip_dist]=Superior_Colliculus(waveform,midline_angle,whisker_length,ret_free,locomotive_path,caudal_dist)
 
 % maps the sinosoid of CPG and adaptation of M1 into whisker movement
 %% Learned map
@@ -22,7 +22,7 @@ waveform(k,4)=map(3,ind); %x
 waveform(k,5)=map(2,ind)*map(3,ind)^2*cosd(midline_angle)+whisker_length*sind(midline_angle-waveform(k,2)+ret_free); %y (tand(15)*4 is the end of the midline the whisker swings around.
 end
 
-nose_adapt=[nose_adapt(:,1);zeros(1500-length(nose_adapt),1)];
-tip_nose=-smooth(waveform(:,5))*10+nose_adapt(1:length(waveform(:,5)))+caudal_dist;
+locomotive_path=[locomotive_path(:,1);zeros(1500-length(locomotive_path),1)];
+tip_dist=-smooth(waveform(:,5))*10+locomotive_path(1:length(waveform(:,5)))+caudal_dist;
 
 

@@ -1,10 +1,12 @@
-function [adapt_flag,waveform,t_start] = S1 (tip_nose,single_touch_dur,waveform,t_start,f,adapt_flag)
+function [adapt_flag,waveform,t_start] = S1 (genotype,tip_dist,single_touch_dur,waveform,t_start,f,adapt_flag)
 
-if(find(tip_nose<0)) % IF whisker contacted object
-    adapt_flag=1;
+if strcmp(genotype,'wild')
+    if(find(tip_dist<0)) % If whisker contacted object
+        adapt_flag=1;
+    end
 end
 
-motor_eff_copy_touch_dur=length(find(tip_nose(end-1000/(2*f):end)<0));
+motor_eff_copy_touch_dur=length(find(tip_dist(end-1000/(2*f):end)<0));
 if (motor_eff_copy_touch_dur>single_touch_dur)
     cut=motor_eff_copy_touch_dur-single_touch_dur;
     waveform(end-cut:end,:)=[];
